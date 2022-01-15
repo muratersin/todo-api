@@ -21,14 +21,22 @@ export default function bootstrap() {
   // configure routes
   router(server);
 
-  // server.use((req, res, next) => next(new NotFoundError('not here!')));
-
   server.listen(process.env.PORT || 3000, () => {
     log.info(`${server.name} listening at ${server.url}`);
   });
+
+  server.on('InternalServer', (req, res, err, callback) => {
+    log.error(err);
+    return callback();
+  });
+
+  server.on('restifyError', (req, res, err, callback) => {
+    log.error(err);
+    return callback();
+  });
 }
 
-// TODO: Error handling, global error, 404
+// TODO: Error handling, global error, 404 log
 // TODO: security (cors, helmet)
 // TODO: jwt parser middleware
 // TODO: accept json only

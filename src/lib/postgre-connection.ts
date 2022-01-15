@@ -1,9 +1,8 @@
 import { createConnection } from 'typeorm';
 
-// import postgreConfig from '../config/postgre.config';
-import User from '../entity/User';
-import Todo from '../entity/Todo';
-import Group from '../entity/Group';
+import { User } from '../modules/user';
+import { Todo } from '../modules/todo';
+import { Group } from '../modules/group';
 
 export function connect() {
   return createConnection({

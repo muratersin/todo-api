@@ -11,24 +11,10 @@ export type Controller = (req: Request, res: Response, next: Next) => any;
 
 export type Middleware = Controller;
 
-export type AuthController = {
-  login: Controller;
-  register: Controller;
-};
-
-export type TodoController = {
-  addTodo: Controller;
-  deleteTodos: Controller;
-  getTodos: Controller;
-  updateTodo: Controller;
-  patchTodo: Controller;
-};
-
-export type GroupController = {
-  addGroup: Controller;
-  getGroups: Controller;
-  deleteGroups: Controller;
-  updateGroup: Controller;
+export type Module = {
+  controller: Controller;
+  model: Controller;
+  repository: Controller;
 };
 
 export type UserDTO = {
@@ -53,4 +39,14 @@ export type TodoDTO = {
   groupId: number;
   status: TodoStatus;
   priority: number;
+  dueDate: Date;
+};
+
+export type TodoQuery = {
+  userId: number;
+  groupId?: number;
+  priority?: number;
+  minDueDate?: Date;
+  maxDueDate?: Date;
+  status?: TodoStatus;
 };

@@ -8,10 +8,10 @@ import { Length, IsEmail, IsNotEmpty, validate } from 'class-validator';
 import { Column, Entity, BaseEntity, BeforeInsert } from 'typeorm';
 import jwt from 'jsonwebtoken';
 
-import { LoginDTO, UserDTO } from '../types';
-import AbstractEntity from './AbstractEntity';
-import { extractErrorMessages } from '../helpers/validation';
-import jwtConfig from '../config/jwt.config';
+import { LoginDTO, UserDTO } from '../../types';
+import AbstractEntity from '../../entity/abstract-entity';
+import { extractErrorMessages } from '../../helpers/validation';
+import jwtConfig from '../../config/jwt.config';
 
 @Entity()
 export default class User extends AbstractEntity implements BaseEntity {

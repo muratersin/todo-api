@@ -1,8 +1,8 @@
 import { Server } from 'restify';
 
-import authController from '../controllers/auth';
-import todoController from '../controllers/todo';
-import groupController from '../controllers/group';
+import { userController } from '../modules/user';
+import { todoController } from '../modules/todo';
+import { groupController } from '../modules/group';
 import authGuardMiddleware from '../middlewares/auth-guard.middleware';
 import { Controller } from '../types';
 
@@ -11,17 +11,16 @@ function withGuard(controller: Controller) {
 }
 
 export default function router(server: Server) {
-  server.post('/login', authController.login);
-  server.post('/register', authController.register);
+  server.post('/login', userController.login);
+  server.post('/register', userController.register);
 
   server.get('/todo', withGuard(todoController.getTodos));
   server.post('/todo', withGuard(todoController.addTodo));
-  server.put('/todo/:id', withGuard(todoController.updateTodo));
-  server.patch('/todo/:id', withGuard(todoController.patchTodo));
-  server.del('/todo/:id', withGuard(todoController.deleteTodos));
+  server.patch('/todo/:id', withGuard(todoController.updateTodo));
+  server.del('/todo/:id', withGuard(todoController.deleteTodo));
 
   server.get('/group', withGuard(groupController.getGroups));
   server.post('/group', withGuard(groupController.addGroup));
   server.put('/group/:id', withGuard(groupController.updateGroup));
-  server.del('/group/:id', withGuard(groupController.deleteGroups));
+  server.del('/group/:id', withGuard(groupController.deleteGroup));
 }

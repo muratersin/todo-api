@@ -1,8 +1,8 @@
 import { Column, Entity, ManyToOne, JoinColumn } from 'typeorm';
 import { Length } from 'class-validator';
 
-import AbstractEntity from './AbstractEntity';
-import User from './User';
+import AbstractEntity from '../../entity/abstract-entity';
+import User from '../user/user.model';
 
 @Entity()
 export default class Group extends AbstractEntity {
