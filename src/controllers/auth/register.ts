@@ -10,7 +10,7 @@ export default async function register(
   try {
     const userDto: UserDTO = req.body;
 
-    await User.create(userDto);
+    await User.register(userDto);
 
     res.json({
       message: 'User successfully registered',

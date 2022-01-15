@@ -1,7 +1,6 @@
 import { createConnection } from 'typeorm';
 
-import postgreConfig from '../config/postgre.config';
-import UserCredential from '../entity/UserCredential';
+// import postgreConfig from '../config/postgre.config';
 import User from '../entity/User';
 import Todo from '../entity/Todo';
 import Group from '../entity/Group';
@@ -9,15 +8,13 @@ import Group from '../entity/Group';
 export function connect() {
   return createConnection({
     type: 'postgres',
-    host: postgreConfig.host,
-    port: postgreConfig.port,
-    username: postgreConfig.user,
-    password: postgreConfig.password,
-    database: postgreConfig.database,
+    url: process.env.PG_URI,
     ssl: {
       rejectUnauthorized: false,
     },
-    entities: [User, UserCredential, Todo, Group],
-    synchronize: true,
+    entities: [User, Todo, Group],
+    synchronize: true, // use migration for production
   });
 }
+
+// TODO: remove config

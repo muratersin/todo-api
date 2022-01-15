@@ -1,5 +1,5 @@
 import restify, { Server, plugins } from 'restify';
-import { NotFoundError } from 'restify-errors';
+// import { NotFoundError } from 'restify-errors';
 
 import router from './router';
 import log from './logger';
@@ -10,6 +10,7 @@ export default function bootstrap() {
   const server: Server = restify.createServer(serverConfig);
 
   server.pre(plugins.pre.dedupeSlashes());
+  server.pre(plugins.pre.context());
 
   server.use(plugins.requestLogger());
   server.use(plugins.queryParser());
@@ -20,7 +21,7 @@ export default function bootstrap() {
   // configure routes
   router(server);
 
-  server.use((req, res, next) => next(new NotFoundError('not here!')));
+  // server.use((req, res, next) => next(new NotFoundError('not here!')));
 
   server.listen(process.env.PORT || 3000, () => {
     log.info(`${server.name} listening at ${server.url}`);
@@ -30,5 +31,4 @@ export default function bootstrap() {
 // TODO: Error handling, global error, 404
 // TODO: security (cors, helmet)
 // TODO: jwt parser middleware
-// TODO: Joi
 // TODO: accept json only
