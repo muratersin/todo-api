@@ -56,7 +56,7 @@ export async function deleteTodo(req: any, res: Response, next: Next) {
 
 export async function getTodos(req: any, res: Response, next: Next) {
   try {
-    const { groupId, priority, status, minDueDate, maxDueDate } = req.params;
+    const { groupId, priority, status, minDueDate, maxDueDate } = req.query;
     const { id } = req.get('user');
     const todos = await Todo.findByQuery({
       userId: id,

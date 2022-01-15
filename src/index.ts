@@ -11,7 +11,7 @@ import log from './lib/logger';
 async function start() {
   try {
     await connect();
-    await bootstrap();
+    bootstrap();
   } catch (err) {
     log.error("Couln't start TodoApi: ", err);
   }

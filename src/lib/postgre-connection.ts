@@ -9,7 +9,7 @@ export function connect() {
     type: 'postgres',
     url: process.env.PG_URI,
     ssl: {
-      rejectUnauthorized: false,
+      rejectUnauthorized: false, // ?
     },
     entities: [User, Todo, Group],
     synchronize: true, // use migration for production

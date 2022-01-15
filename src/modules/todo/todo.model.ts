@@ -42,7 +42,7 @@ export default class Todo extends AbstractEntity {
   @JoinColumn()
   user!: User;
 
-  @ManyToOne(() => Group)
+  @ManyToOne(() => Group, { onDelete: 'CASCADE' })
   @JoinColumn()
   group!: Group;
 

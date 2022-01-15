@@ -38,5 +38,4 @@ export default function bootstrap() {
 
 // TODO: Error handling, global error, 404 log
 // TODO: security (cors, helmet)
-// TODO: jwt parser middleware
 // TODO: accept json only
