@@ -15,10 +15,12 @@ export async function addGroup(req: any, res: Response, next: Next) {
     group.name = groupDto.name;
     await group.save();
 
-    res.json({
-      message: 'Successfully created',
-      data: await Group.findOne(group.id),
-    });
+    const leanGroup = {
+      ...group,
+      user: undefined,
+    };
+
+    res.json(leanGroup);
   } catch (err) {
     next(err);
   }
@@ -46,6 +48,7 @@ export async function getGroups(req: any, res: Response, next: Next) {
   try {
     const { id } = req.get('user');
     const groups = await Group.find({
+      select: ['id', 'name'],
       where: {
         user: id,
       },
@@ -68,7 +71,7 @@ export async function updateGroup(req: any, res: Response, next: Next) {
     group.name = req.body.name;
     await group.save();
 
-    res.json({ data: group, message: 'Successfully updated' });
+    res.json(group);
   } catch (err) {
     next(err);
   }

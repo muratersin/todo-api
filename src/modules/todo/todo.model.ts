@@ -19,10 +19,6 @@ import { TodoQuery } from '../../types';
 export default class Todo extends AbstractEntity {
   @Length(2, 100)
   @Column({ type: 'varchar', length: 100 })
-  title!: string;
-
-  @Length(0, 300)
-  @Column({ type: 'text', nullable: true })
   content!: string;
 
   @Min(1)
@@ -72,6 +68,8 @@ export default class Todo extends AbstractEntity {
     }
 
     const todos = await Todo.find({
+      select: ['id', 'content', 'priority', 'status', 'dueDate'],
+      relations: ['group'],
       where,
     });
 

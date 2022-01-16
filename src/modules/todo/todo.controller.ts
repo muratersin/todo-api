@@ -20,17 +20,18 @@ export async function addTodo(req: any, res: Response, next: Next) {
     const todo = new Todo();
     todo.user = user;
     todo.group = group;
-    todo.title = todoDto.title;
     todo.content = todoDto.content;
     todo.priority = todoDto.priority;
     todo.status = todoDto.status;
     todo.dueDate = todoDto.dueDate;
     await todo.save();
 
-    res.json({
-      message: 'Successfully created',
-      data: await Todo.findOne(todo.id),
-    });
+    const leanObject = {
+      ...todo,
+      user: null,
+    };
+
+    res.json(leanObject);
   } catch (err) {
     next(err);
   }
@@ -84,10 +85,6 @@ export async function updateTodo(req: any, res: Response, next: Next) {
       throw new NotFoundError('Todo not found');
     }
 
-    if (todoDto.title) {
-      todo.title = todoDto.title;
-    }
-
     if (todoDto.content) {
       todo.content = todoDto.content;
     }
@@ -113,7 +110,7 @@ export async function updateTodo(req: any, res: Response, next: Next) {
 
     await todo.save();
 
-    res.json({ data: todo, message: 'Successfully updated' });
+    res.json(todo);
   } catch (err) {
     next(err);
   }
