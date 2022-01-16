@@ -13,6 +13,7 @@ function withGuard(controller: Controller) {
 export default function router(server: Server) {
   server.post('/login', userController.login);
   server.post('/register', userController.register);
+  server.get('/user', withGuard(userController.getUser));
 
   server.get('/todo', withGuard(todoController.getTodos));
   server.post('/todo', withGuard(todoController.addTodo));

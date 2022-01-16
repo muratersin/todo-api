@@ -15,12 +15,15 @@ export default function authGuardMiddleware(
       throw new Error();
     }
 
-    const decoded = jwt.verify(req.headers.authorization, jwtConfig.secret);
+    const decoded = jwt.verify(
+      req.headers.authorization.replace('Bearer ', ''),
+      jwtConfig.secret
+    );
 
     req.set('user', decoded);
 
     next();
-  } catch (err) {
-    next(new UnauthorizedError());
+  } catch (err: any) {
+    next(new UnauthorizedError(err?.message));
   }
 }

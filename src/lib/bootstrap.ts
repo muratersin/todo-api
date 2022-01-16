@@ -5,13 +5,16 @@ import router from './router';
 import log from './logger';
 import throttleConfig from '../config/throttle.config';
 import serverConfig from '../config/server.config';
+import corsMiddleware from '../middlewares/cors.middleware';
 
 export default function bootstrap() {
   const server: Server = restify.createServer(serverConfig);
 
   server.pre(plugins.pre.dedupeSlashes());
   server.pre(plugins.pre.context());
+  server.pre(corsMiddleware.preflight);
 
+  server.use(corsMiddleware.actual);
   server.use(plugins.requestLogger());
   server.use(plugins.queryParser());
   server.use(plugins.bodyParser());

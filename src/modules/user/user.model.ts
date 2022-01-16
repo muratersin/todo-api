@@ -86,8 +86,7 @@ export default class User extends AbstractEntity implements BaseEntity {
     return {
       id: user.id,
       email: user.email,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      fullName: `${user.firstName} ${user.lastName}`,
     };
   }
 }
