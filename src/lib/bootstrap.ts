@@ -6,6 +6,7 @@ import log from './logger';
 import throttleConfig from '../config/throttle.config';
 import serverConfig from '../config/server.config';
 import corsMiddleware from '../middlewares/cors.middleware';
+import requestLoggerMiddleware from '../middlewares/request-logger.middleware';
 
 export default function bootstrap() {
   const server: Server = restify.createServer(serverConfig);
@@ -20,6 +21,7 @@ export default function bootstrap() {
   server.use(plugins.bodyParser());
   server.use(plugins.gzipResponse());
   server.use(plugins.throttle(throttleConfig));
+  server.use(requestLoggerMiddleware);
 
   // configure routes
   router(server);
@@ -30,6 +32,7 @@ export default function bootstrap() {
 
   server.on('InternalServer', (req, res, err, callback) => {
     log.error(err);
+    // TODO: critical errors may record to a file or database
     return callback();
   });
 
@@ -39,6 +42,5 @@ export default function bootstrap() {
   });
 }
 
-// TODO: Error handling, global error, 404 log
-// TODO: security (cors, helmet)
+// TODO: security (helmet)
 // TODO: accept json only

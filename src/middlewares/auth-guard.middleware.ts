@@ -3,7 +3,6 @@ import { UnauthorizedError } from 'restify-errors';
 import jwt from 'jsonwebtoken';
 
 import jwtConfig from '../config/jwt.config';
-// import { RequestWithContext } from '../types';
 
 export default function authGuardMiddleware(
   req: any,
