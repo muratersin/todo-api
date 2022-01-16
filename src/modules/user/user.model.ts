@@ -5,7 +5,7 @@ import {
   UnauthorizedError,
 } from 'restify-errors';
 import { Length, IsEmail, IsNotEmpty, validate } from 'class-validator';
-import { Column, Entity, BaseEntity, BeforeInsert } from 'typeorm';
+import { Column, Entity, BeforeInsert } from 'typeorm';
 import jwt from 'jsonwebtoken';
 
 import { LoginDTO, UserDTO } from '../../types';
@@ -14,7 +14,7 @@ import { extractErrorMessages } from '../../helpers/validation';
 import jwtConfig from '../../config/jwt.config';
 
 @Entity()
-export default class User extends AbstractEntity implements BaseEntity {
+export default class User extends AbstractEntity {
   @Length(2, 50)
   @Column({ type: 'varchar', length: 50 })
   firstName!: string;
