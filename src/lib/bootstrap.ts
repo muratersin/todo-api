@@ -1,5 +1,5 @@
 import restify, { Server, plugins } from 'restify';
-// import { NotFoundError } from 'restify-errors';
+import helmet from 'helmet';
 
 import router from './router';
 import log from './logger';
@@ -15,6 +15,7 @@ export default function bootstrap() {
   server.pre(plugins.pre.context());
   server.pre(corsMiddleware.preflight);
 
+  server.use(helmet());
   server.use(corsMiddleware.actual);
   server.use(plugins.requestLogger());
   server.use(plugins.queryParser());
@@ -42,5 +43,4 @@ export default function bootstrap() {
   });
 }
 
-// TODO: security (helmet)
 // TODO: accept json only
