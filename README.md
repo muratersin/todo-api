@@ -28,3 +28,12 @@ docker build -t muratersin/todo-api .
 
 docker run -p 127.0.0.1:3000:3000 -d --name todo-api  muratersin/todo-api
 ```
+
+### Environment Variables
+
+Your environment variables should be like this:
+
+```
+JWT_SECRET=SECRET
+PG_URI=PG_URI
+```
